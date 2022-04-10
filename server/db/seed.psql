@@ -1,0 +1,90 @@
+CREATE DATABASE animal_sighting_tracker;
+
+\c animal_sighting_tracker;
+
+CREATE TABLE species (
+	id SERIAL PRIMARY KEY,
+	common_name VARCHAR ( 50 ) UNIQUE NOT NULL,
+	scientific_name VARCHAR ( 50 ) NOT NULL,
+	population integer,
+    conservation_status VARCHAR (2),
+	created_on TIMESTAMP WITH TIME zone DEFAULT CURRENT_TIMESTAMP 
+);
+
+CREATE TABLE individuals (
+	id serial PRIMARY KEY,
+	nick_name VARCHAR ( 50 ),
+	species_id integer NOT NULL,
+	seen_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_species
+    FOREIGN KEY(species_id) 
+	REFERENCES species(id)
+);
+
+CREATE TABLE sightings (
+	id serial PRIMARY KEY,
+    date_time TIMESTAMP WITH TIME ZONE,
+	location VARCHAR ( 50 )  NOT NULL,
+    healthy BOOLEAN NOT NULL,
+    email VARCHAR(50) UNIQUE,
+    individual_id INT NOT NULL,
+	created_on TIMESTAMP WITH TIME ZONE NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT fk_individuals
+      FOREIGN KEY(individual_id) 
+	  REFERENCES individuals(id)
+);
+
+ALTER TABLE sightings
+DROP COLUMN email;
+
+ALTER TABLE sightings
+ADD CONSTRAINT fk_sighter_id
+      FOREIGN KEY(sighter_id) 
+	  REFERENCES sighter(id);
+
+ALTER TABLE sightings 
+ADD sighter_id integer;
+
+ALTER TABLE sightings ADD CONSTRAINT fk_sighter_id FOREIGN KEY (sighter_id) REFERENCES sighter(id);
+
+
+
+CREATE TABLE sighter (
+	id serial PRIMARY KEY,
+    email VARCHAR(50) UNIQUE
+);
+
+
+
+-- SHOW TABLE
+    \dt
+
+
+INSERT INTO 
+    species(common_name,scientific_name, population, conservation_status, created_on)
+VALUES
+    ('Rhinoceros','Rhinoceros sondaicus', '60', 'CE','2016-06-22 19:10:25-07'),
+    ('Vaquita',' Phocoena sinus', NULL, 'CE','2017-06-22 19:10:25-07'),
+    ('Gorilla','Gorilla beringei beringei', null, 'CE','2016-06-22 20:20:25-07'),
+    ('Tigers','Panthera tigris', null, 'CE','2020-06-22 19:10:25-07');
+
+
+INSERT INTO 
+     individuals(nick_name, seen_on, species_id) 
+VALUES ('jocky','2016-06-22 20:20:25-07', 2),
+       ('chintu','2016-06-22 20:20:25-07', 3),
+       ('reya','2016-06-22 20:20:25-07', 1),
+       ('tom','2016-06-22 20:20:25-07', 2);
+
+INSERT INTO 
+     sighter(email) 
+VALUES ('abc@gmail.com'),
+       ('def@gmail.com'),
+       ('xyz@gmail.com');
+       
+
+
+INSERT INTO 
+     sightings(date_time ,location, healthy, individual_id, sighter_id) 
+VALUES ('2016-06-22 20:20:25-07','Olympic National Park', true, 2, 1),
+   ('2016-06-22 20:20:25-07','Zion National Park',false, 3, 2);
