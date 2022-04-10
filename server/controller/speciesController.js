@@ -1,38 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-const db = require("../server/db/db-connection.js");
-const allRouter = require("./routes/routes");
+const db = require("../db/db-connection");
+//  Get all species
 
-const app = express();
-
-// set port, listen for requests
-const PORT = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-
-//creates an endpoint for the route /api
-app.get("/", (req, res) => {
-  res.json({ message: "Hello from My ExpressJS" });
-});
-
-app.use("/", allRouter);
-
-// ----------------------------- Individuals -----------------------------
-
-//  Get all Individuals
-app.get("/api/species", cors(), async (req, res) => {
+const getAllSpecies = async (req, res) => {
   try {
     const { rows: species } = await db.query("SELECT * FROM species");
     res.send(species);
   } catch (e) {
     return res.status(400).json({ e });
   }
-});
+};
 
 //create the POST request
-app.post("/api/species", cors(), async (req, res) => {
+const addNewSpecies = async (req, res) => {
   const newSpecies = {
     commonName: req.body.common_name,
     scientificName: req.body.scientific_name,
@@ -53,10 +32,10 @@ app.post("/api/species", cors(), async (req, res) => {
   );
   console.log(result.rows[0]);
   res.json(result.rows[0]);
-});
+};
 
 // Put request - Update to an specific species
-app.put("/api/species/:id", cors(), async (req, res) => {
+const updateSpecies = async (req, res) => {
   const speciesId = req.params.id;
   const updateSpecies = {
     commonName: req.body.common_name,
@@ -87,9 +66,9 @@ app.put("/api/species/:id", cors(), async (req, res) => {
     console.log(e);
     return res.status(400).json({ e });
   }
-});
+};
 
-app.delete("/api/species/:id", cors(), async (req, res) => {
+const deleteSpecies = async (req, res) => {
   const speciesId = req.params.id;
 
   console.log("Delete request is receiving", speciesId);
@@ -105,13 +84,11 @@ app.delete("/api/species/:id", cors(), async (req, res) => {
     console.log(e);
     return res.status(400).json({ e });
   }
-});
+};
 
-// ----------------------------- Sightings -----------------------------
-
-// ----------------------------- Sighter -----------------------------
-
-// console.log that your server is up and running
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+module.exports = {
+  getAllSpecies,
+  addNewSpecies,
+  updateSpecies,
+  deleteSpecies,
+};
