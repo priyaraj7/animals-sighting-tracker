@@ -20,6 +20,13 @@ const {
   deleteSighting,
 } = require("../controller/sightings");
 
+const {
+  getAllSighter,
+  addNewSighter,
+  updateSighter,
+  deleteSighter,
+} = require("../controller/sighter");
+
 const router = express.Router();
 
 // SPECIES ROUTE
@@ -39,5 +46,11 @@ router.get("/api/sighting", getAllSighting);
 router.post("/api/sighting", addNewSighting);
 router.put("/api/sighting/:id", updateSighting);
 router.delete("/api/sighting/:id", deleteSighting);
+
+// SIGHTERS ROUTE
+router.get("/api/sighters", getAllSighter);
+router.post("/api/sighters", addNewSighter);
+router.put("/api/sighters/:id", updateSighter);
+router.delete("/api/sighters/:id", deleteSighter);
 
 module.exports = router;

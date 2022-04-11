@@ -88,3 +88,6 @@ INSERT INTO
      sightings(date_time ,location, healthy, individual_id, sighter_id) 
 VALUES ('2016-06-22 20:20:25-07','Olympic National Park', true, 2, 1),
    ('2016-06-22 20:20:25-07','Zion National Park',false, 3, 2);
+
+ALTER TABLE sighter
+  RENAME TO sighters;
