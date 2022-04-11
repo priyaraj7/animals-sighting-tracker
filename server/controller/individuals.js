@@ -1,5 +1,5 @@
 const db = require("../db/db-connection");
-
+const model = require("../models/individuals");
 //  Get all individual
 
 const getAllIndividuals = async (req, res) => {
@@ -19,10 +19,7 @@ const addNewIndividual = async (req, res) => {
     speciesId: req.body.species_id,
   };
   console.log([newIndividual.nickName, newIndividual.seenOn]);
-  const result = await db.query(
-    "INSERT INTO individuals(nick_name, seen_on, species_id) VALUES($1, $2, $3) RETURNING *",
-    [newIndividual.nickName, newIndividual.seenOn, newIndividual.speciesId]
-  );
+  const result = await model.addNewIndividual(newIndividual);
   console.log(result.rows[0]);
   res.json(result.rows[0]);
 };
@@ -37,17 +34,9 @@ const updateIndividual = async (req, res) => {
   };
   console.log("These are the request params that the server is receiving", id);
 
-  const query = `UPDATE individuals SET nick_name=$1, seen_on=$2, species_id= $3 WHERE id= $4 RETURNING *`;
-  console.log(query);
-  const values = [
-    updateIndividual.nickName,
-    updateIndividual.seenOn,
-    updateIndividual.speciesId,
-    id,
-  ];
   try {
-    const update = await db.query(query, values);
-    console.log(update);
+    const update = await model.updateIndividual(id, updateIndividual);
+
     console.log(update.rows[0]);
     res.send(update.rows[0]);
   } catch (e) {
@@ -57,17 +46,14 @@ const updateIndividual = async (req, res) => {
 };
 
 const deleteIndividual = async (req, res) => {
-  const speciesId = req.params.id;
+  const id = req.params.id;
 
-  console.log("Delete request is receiving", speciesId);
+  console.log("Delete request is receiving", id);
 
-  const query = `DELETE FROM individuals WHERE id = $1`;
-  console.log(query);
-  const values = [speciesId];
   try {
-    const deleteIndividual = await db.query(query, values);
+    const deleteIndividual = await model.deleteIndividual(id);
 
-    res.status(200).send(`individuals deleted with ID: ${speciesId}`);
+    res.status(200).send(`individuals deleted with ID: ${id}`);
   } catch (e) {
     console.log(e);
     return res.status(400).json({ e });
