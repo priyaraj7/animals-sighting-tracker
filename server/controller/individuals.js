@@ -4,8 +4,8 @@ const model = require("../models/individuals");
 
 const getAllIndividuals = async (req, res) => {
   try {
-    const { rows: individuals } = await db.query("SELECT * FROM individuals");
-    res.send(individuals);
+    const result = await model.getIndividual();
+    res.send(result);
   } catch (e) {
     return res.status(400).json({ e });
   }
