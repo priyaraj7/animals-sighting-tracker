@@ -1,12 +1,12 @@
 import Form from "./components/form/Form";
-import SpeciesList from "./components/species/SpeciesList";
+import SpeciesList from "./components/detail/DetailPage";
 import IndividualList from "./components/individual/Individual";
 
 function App() {
   return (
     <div className="App">
-      <SpeciesList />
-      <Form />
+      {/* <SpeciesList />
+      <Form /> */}
       <IndividualList />
     </div>
   );

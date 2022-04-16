@@ -1,7 +1,14 @@
 const db = require("../db/db-connection");
 
 const getSighting = async () => {
-  const { rows: sighting } = await db.query("SELECT * FROM sightings");
+  const { rows: sighting } = await db.query(`SELECT\ 
+    sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\ 
+  FROM\ 
+    sightings\
+  RIGHT JOIN individuals\
+     ON individuals.id = sightings.individual_id\
+  RIGHT JOIN species\
+    ON species.id = individuals.species_id`);
   return sighting;
 };
 

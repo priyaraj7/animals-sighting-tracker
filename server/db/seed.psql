@@ -91,3 +91,12 @@ VALUES ('2016-06-22 20:20:25-07','Olympic National Park', true, 2, 1),
 
 ALTER TABLE sighter
   RENAME TO sighters;
+
+
+ALTER TABLE sightings
+ADD email VARCHAR(50) UNIQUE;
+
+ALTER TABLE sightings
+DROP COLUMN sighter_id;
+
+DROP TABLE IF EXISTS sighter;
