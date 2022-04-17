@@ -7,7 +7,7 @@ const getSighting = async () => {
     sightings\
   RIGHT JOIN individuals\
      ON individuals.id = sightings.individual_id\
-  RIGHT JOIN species\
+  LEFT JOIN species\
     ON species.id = individuals.species_id`);
   return sighting;
 };

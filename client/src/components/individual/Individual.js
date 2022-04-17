@@ -26,6 +26,28 @@ const IndividualSightingList = () => {
   useEffect(() => {
     getAllSighting(); // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
   }, []);
+
+  // add individual sighting
+  // const saveIndividual = () => {
+  //   fetch("/api/sighting", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: formData, // Use your own property name / key
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => setData(result.rows))
+  //     .catch((err) => console.log("error"));
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   saveIndividual(); // Save games when form is submitted
+  // };
+
   return (
     <div className="Individual-List">
       {/* <h1>Common Name: individual.common_name</h1>

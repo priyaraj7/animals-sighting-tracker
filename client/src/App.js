@@ -5,9 +5,9 @@ import IndividualList from "./components/individual/Individual";
 function App() {
   return (
     <div className="App">
-      {/* <SpeciesList />
-      <Form /> */}
+      {/* <SpeciesList /> */}
       <IndividualList />
+      <Form />
     </div>
   );
 }
