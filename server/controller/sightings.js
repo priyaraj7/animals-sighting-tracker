@@ -4,7 +4,16 @@ const model = require("../models/sightings");
 //  Get all sighting
 const getAllSighting = async (req, res) => {
   try {
-    const result = await model.getSighting();
+    const result = await model.getSightings();
+    res.send(result);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+};
+
+const getSighting = async (req, res) => {
+  try {
+    const result = await model.getSightings(req.params.id);
     res.send(result);
   } catch (e) {
     return res.status(400).json({ e });
@@ -76,6 +85,7 @@ const getSightingDetails = async (req, res) => {
 
 module.exports = {
   getAllSighting,
+  getSighting,
   addNewSighting,
   updateSighting,
   deleteSighting,

@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import "./DetailPage.css";
 
 function DetailPage() {
-  const [individual, setIndividual] = useState([]);
+  let { id } = useParams();
+  const [sightingDetail, setSightingDetail] = useState(null);
 
   // Access your API from  React app
 
-  console.log(individual);
+  console.log(sightingDetail);
 
-  const getAllSighting = async () => {
-    const request = await fetch("/api/sighting");
+  const getSightingDetail = async () => {
+    const request = await fetch(`/api/sighting/${id}`);
+    // debugger;
     const result = await request.json();
     console.log(result);
-    setIndividual(result);
+    setSightingDetail(result);
   };
 
   useEffect(() => {
-    getAllSighting(); // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    getSightingDetail(); // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
   }, []);
 
   return (

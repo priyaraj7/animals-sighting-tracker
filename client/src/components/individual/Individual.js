@@ -4,8 +4,8 @@ import "./Individual.css";
 
 const IndividualSightingList = () => {
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/detail`;
+  const routeChange = (id) => {
+    let path = `/detail/${id}`;
     navigate(path);
   };
 
@@ -19,7 +19,7 @@ const IndividualSightingList = () => {
   const getAllSighting = async () => {
     const request = await fetch("/api/sighting");
     const result = await request.json();
-    // console.log(result);
+    console.log(result);
     setSighting(result);
   };
 
@@ -91,7 +91,7 @@ const IndividualSightingList = () => {
                   <td>{val.observerName}</td> */}
                   {/* <td>{val.observerEmail}</td> */}
                   <td>
-                    <button onClick={routeChange}>Details</button>
+                    <button onClick={() => routeChange(val.id)}>Details</button>
                   </td>
                 </tr>
               );

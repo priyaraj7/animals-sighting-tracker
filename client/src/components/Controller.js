@@ -25,7 +25,7 @@ const Controller = () => {
 
       <Route
         // index={true}
-        path="/detail"
+        path="/detail/:id"
         element={
           <DetailPage
           // events={events}
