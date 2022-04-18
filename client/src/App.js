@@ -1,13 +1,16 @@
-import Form from "./components/form/Form";
-import SpeciesList from "./components/detail/DetailPage";
+//import Form from "./components/form/Form";
+import Header from "./components/header/Header";
+
 import IndividualList from "./components/individual/Individual";
+import Controller from "./components/Controller";
 
 function App() {
   return (
     <div className="App">
-      {/* <SpeciesList /> */}
+      <Header />
+
       <IndividualList />
-      <Form />
+      <Controller />
     </div>
   );
 }

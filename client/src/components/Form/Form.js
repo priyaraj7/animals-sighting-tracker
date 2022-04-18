@@ -1,62 +1,35 @@
 import { useEffect, useState } from "react";
-import { useReducer } from "react";
-import { useForm } from "react-hook-form";
+// import { useReducer } from "react";
+// import { useForm } from "react-hook-form";
 // import DateTimePicker from "react-datetime-picker";
 import "./Form.css";
 
 const Form = ({ addNewSighting }) => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  // const initialValues = {
+  //   id: "",
+  //   common_name: "",
+  //   last_seen: "",
+  //   scientific_name: "",
+  //   name: "",
+  //   location: "",
+  //   healthy: false,
+  //   email: "",
+  // };
 
-  const initialState = {
-    id: "",
-    common_name: "",
-    last_seen: "",
-    scientific_name: "",
-    name: "",
-    location: "",
-    healthy: false,
-    email: "",
-  };
-
-  const [species, setSpecies] = useState([]);
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "species_id":
-        const s = species.find(
-          (sp) => sp.id === Number.parseInt(action.payload, 10)
-        );
-        return {
-          ...state,
-          species_id: action.payload,
-          common_name: s.common_name,
-          scientific_name: s.scientific_name,
-        };
-        return state;
-      case "nickName":
-        return { ...state, name: action.payload };
-      case "heathStatus":
-        return { ...state, healthy: action.payload };
-      case "dateTime":
-        return { ...state, last_seen: action.payload };
-      case "location":
-        return { ...state, location: action.payload };
-      case "email":
-        return { ...state, email: action.payload };
-      case "last_seen":
-        return { ...state, last_seen: action.payload };
-      default:
-        throw new Error(`Unknown action type: ${action.type}`);
-    }
-  };
+  // debugger;
 
   // STATE
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [value, onChange] = useState(new Date());
+  const [species, setSpecies] = useState([]);
+  const [individuals, setIndividuals] = useState([]);
+  // const [inputValues, setInputValues] = useState(initialValues);
+  const [selectedSpecies, setSelectedSepcies] = useState(null);
+
+  const [selectedIndividual, setSelectedIndividual] = useState("");
+
+  const [healthy, setHealthy] = useState(false);
+  const [location, setLocation] = useState("");
+  const [lastSeen, setLastSeen] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const getAllSpecies = async () => {
@@ -67,70 +40,80 @@ const Form = ({ addNewSighting }) => {
     getAllSpecies();
   }, []);
 
-  console.log(state);
+  useEffect(() => {
+    const getIndividualsOfSpecies = async () => {
+      const request = await fetch(`/api/individual/${selectedSpecies}`);
+      const result = await request.json();
+      setIndividuals(result);
+    };
+    if (selectedSpecies) getIndividualsOfSpecies();
+  }, [selectedSpecies]);
 
-  // const onSubmit = (data) => console.log(data);
-
+  // const test = (ev) => {
+  //   ev.preventDefault();
+  //   return false;
+  // };
+  console.log(individuals);
   return (
     <>
       <div className="FormPage">
         <h1 className="h1">Form</h1>
-        <form className="Form" onSubmit={handleSubmit(addNewSighting)}>
+        <form
+          className="Form"
+          onSubmit={(ev) => {
+            ev.preventDefault();
+
+            addNewSighting({
+              healthy,
+              lastSeen,
+              location,
+              email,
+              individual_id: selectedIndividual,
+            });
+          }}
+        >
           <fieldset>
             <legend>Please enter the individual information</legend>
 
             <label>Select common Name</label>
             <select
               name="species_id"
-              onChange={(event) =>
-                dispatch({
-                  type: "species_id",
-                  payload: event.target.value,
-                })
-              }
+              onChange={(e) => setSelectedSepcies(e.target.value)}
             >
+              <option>Select one</option>
               {species.map((animal) => (
                 <option key={animal.id} value={animal.id}>
                   {animal.common_name}
                 </option>
               ))}
             </select>
-            {/* <input
-              {...register("commonName", { required: true })}
-              readOnly
-              value={state.common_name}
-              placeholder="Select the Common Name"
-            />
-            {errors.commonName?.type === "required" &&
-              "Common name is required"} */}
-
-            {/* <label>Scientific Name</label> */}
-            {/* <input
-              {...register("scientificName", { required: true })}
-              readOnly
-              value={state.scientific_name}
-              placeholder="Select the Scientific Name"
-            />
-            {errors.scientificName && "Scientific name is required"} */}
 
             <label>Nick Name</label>
-            <input
-              {...register("nickName", { required: true })}
-              value={state.name}
-              onChange={(event) =>
-                dispatch({ type: "nickName", payload: event.target.value })
-              }
+            <select
+              name="individual_id"
+              value={selectedIndividual}
+              onChange={(ev) => setSelectedIndividual(ev.target.value)}
+            >
+              <option>Select one</option>
+              {individuals.map((ind) => (
+                <option key={ind.id} value={ind.id}>
+                  {ind.nick_name}
+                </option>
+              ))}
+            </select>
+            {/* <input
+              // {...register("nickName", { required: true })}
               placeholder="Nick Name"
-            />
-            {errors.nickName?.type === "required" && "Nick Name is required"}
+              value={nickName}
+              onChange={(e) => setNickName(e.target.value)}
+            /> */}
+            {/* {errors.nickName?.type === "required" && "Nick Name is required"} */}
 
             <label>Status</label>
             <select
-              {...register("healthy")}
-              value={state.healthy}
-              onChange={(event) =>
-                dispatch({ type: "heathStatus", payload: event.target.value })
-              }
+              // {...register("healthy")}
+              value={healthy}
+              onChange={(e) => setHealthy(e.target.value)}
               placeholder="Select Health Status"
             >
               <option value="yes">yes</option>
@@ -140,20 +123,18 @@ const Form = ({ addNewSighting }) => {
             <label>Date and time of last seen</label>
             <input
               type="datetime-local"
-              value={state.last_seen}
               max={new Date().toISOString().slice(0, -5)}
-              onChange={(ev) =>
-                dispatch({ type: "last_seen", payload: ev.target.value })
-              }
+              value={lastSeen}
+              onChange={(e) => {
+                setLastSeen(e.target.value);
+              }}
             />
 
             <label>Location</label>
             <textarea
-              {...register("Location")}
-              value={state.location}
-              onChange={(event) =>
-                dispatch({ type: "location", payload: event.target.value })
-              }
+              // {...register("Location")}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
             />
             {/* <label>date & Time Seen</label> */}
@@ -166,14 +147,12 @@ const Form = ({ addNewSighting }) => {
 
             <label>Email</label>
             <input
-              {...register("email", { required: true })}
-              value={state.email}
-              onChange={(event) =>
-                dispatch({ type: "email", payload: event.target.value })
-              }
+              // {...register("email", { required: true })}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
             />
-            {errors.email && "email is required"}
+            {/* {errors.email && "email is required"} */}
           </fieldset>
 
           <button className="FormSubmit" type="submit">

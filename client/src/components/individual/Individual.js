@@ -5,7 +5,7 @@ import "./Individual.css";
 const IndividualSightingList = () => {
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = `/api/species`;
+    let path = `/detail`;
     navigate(path);
   };
 
@@ -14,12 +14,12 @@ const IndividualSightingList = () => {
 
   // Access your API from  React app
 
-  console.log(sighting);
+  // console.log(sighting);
 
   const getAllSighting = async () => {
     const request = await fetch("/api/sighting");
     const result = await request.json();
-    console.log(result);
+    // console.log(result);
     setSighting(result);
   };
 

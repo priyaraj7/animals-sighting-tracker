@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import "./DetailPage.css";
 
-function SpeciesList() {
+function DetailPage() {
   const [individual, setIndividual] = useState([]);
 
   // Access your API from  React app
@@ -21,20 +21,23 @@ function SpeciesList() {
   }, []);
 
   return (
-    <div className="SpeciesList">
+    <div className="detailPage">
       <h1>Common Name: individual.common_name</h1>
       <div className="Flex">
         <p>Scientific Name: xyz</p>
         <p>Conservation Status: Endangered</p>
         <p>Population: 500</p>
-        <p>Wiki Link</p>
+        <p>Nick Name:</p>
+        <p>Last Seen:</p>
+        <p>Location:</p>
+        <button className="deleteButton">Delete</button>
       </div>
-      <table>
+      {/* <table>
         <tbody>
           <tr>
             <th>C N</th>
             <th> S N</th>
-            {/* <th>Species</th> */}
+           
             <th>conservation Status</th>
           </tr>
           {individual.map((val, key) => {
@@ -42,15 +45,15 @@ function SpeciesList() {
               <tr key={key}>
                 <td>{val.common_name}</td>
                 <td>{val.scientific_name}</td>
-                {/* <td>{val.Species}</td> */}
+             
                 <td>{val.conservation_status}</td>
               </tr>
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }
 
-export default SpeciesList;
+export default DetailPage;

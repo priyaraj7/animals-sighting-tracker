@@ -1,14 +1,15 @@
 
 
-.SpeciesList {
+.detailPage {
     width: 100%;
     height: 100vh;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
+    text-align: center;
     }
     
-    table {
+    /* table {
     border: 2px solid rgba(9, 9, 9, 0.1);
     width: 800px;
     height: 200px;
@@ -20,6 +21,18 @@
     
     td {
     text-align: center;
+    } */
+
+    .deleteButton{
+        /* position: absolute; */
+    /* top:50%; */
+    background-color:#e61c1c;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:15px;
+    min-height:30px; 
+    min-width: 120px;
     }
     
     
