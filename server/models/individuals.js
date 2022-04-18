@@ -5,6 +5,14 @@ const getIndividual = async () => {
   return individual;
 };
 
+const getIndividualsOfSpecies = async (speciesId) => {
+  const { rows: individual } = await db.query(
+    "SELECT * FROM individuals where species_id=$1",
+    [speciesId]
+  );
+  return individual;
+};
+
 const addNewIndividual = async (newIndividual) => {
   const result = await db.query(
     "INSERT INTO individuals(nick_name, seen_on, species_id) VALUES($1, $2, $3) RETURNING *",
@@ -36,4 +44,5 @@ module.exports = {
   addNewIndividual,
   updateIndividual,
   deleteIndividual,
+  getIndividualsOfSpecies,
 };

@@ -11,6 +11,16 @@ const getAllIndividuals = async (req, res) => {
   }
 };
 
+const getIndividualsOfSpecies = async (req, res) => {
+  try {
+    const speciesId = req.params.id;
+    const result = await model.getIndividualsOfSpecies(speciesId);
+    res.send(result);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+};
+
 //create the POST request
 const addNewIndividual = async (req, res) => {
   const newIndividual = {
@@ -65,4 +75,5 @@ module.exports = {
   addNewIndividual,
   updateIndividual,
   deleteIndividual,
+  getIndividualsOfSpecies,
 };

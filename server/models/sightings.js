@@ -14,14 +14,14 @@ const getSighting = async () => {
 
 const addNewSighting = async (newSighting) => {
   const result = await db.query(
-    "INSERT INTO sightings(date_time, location, healthy,individual_id, created_on, sighter_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+    "INSERT INTO sightings(date_time, location, healthy,individual_id, created_on, email) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
     [
       newSighting.dateTime,
       newSighting.location,
       newSighting.healthy,
       newSighting.individualId,
       newSighting.createdOn,
-      newSighting.sighterId,
+      newSighting.email,
     ]
   );
   return result;
@@ -48,9 +48,15 @@ const deleteSighting = async (id) => {
   return result;
 };
 
+const getSightingDetails = async (id) => {
+  const result = await db.query("SELECT * from sightings WHERE id = $1", [id]);
+  return result.rows[0];
+};
+
 module.exports = {
   getSighting,
   addNewSighting,
   updateSighting,
   deleteSighting,
+  getSightingDetails,
 };

@@ -14,11 +14,12 @@ const getAllSighting = async (req, res) => {
 //create the POST request
 const addNewSighting = async (req, res) => {
   const newSighting = {
-    dateTime: req.body.date_time,
+    dateTime: req.body.lastSeen,
     location: req.body.location,
     healthy: req.body.healthy,
+    email: req.body.email,
     individualId: req.body.individual_id,
-    createdOn: req.body.created_on,
+    createdOn: req.body.created_on || new Date().toISOString(),
     sighterId: req.body.sighter_id,
   };
   console.log([newSighting.healthy, newSighting.location]);
@@ -36,7 +37,7 @@ const updateSighting = async (req, res) => {
     healthy: req.body.healthy,
     individualId: req.body.individual_id,
     createdOn: req.body.created_on,
-    sighterId: req.body.sighter_id,
+    email: req.body.email,
   };
   console.log("These are the request params that the server is receiving", id);
 
@@ -66,9 +67,17 @@ const deleteSighting = async (req, res) => {
   }
 };
 
+const getSightingDetails = async (req, res) => {
+  const id = req.params.id;
+  const result = await model.getSightingDetails(id);
+  if (result) return res.status(200).send(JSON.stringify(result));
+  res.status(404).send("Sighting not found");
+};
+
 module.exports = {
   getAllSighting,
   addNewSighting,
   updateSighting,
   deleteSighting,
+  getSightingDetails,
 };
