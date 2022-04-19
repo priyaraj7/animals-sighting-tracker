@@ -68,7 +68,7 @@ const getSightingDetails = async (id) => {
   try {
     const result = await db.query(
       `SELECT\
-    sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\ 
+    sightings.date_time as last_seen, sightings.healthy, sightings.location, sightings.id, individuals.nick_name as name, species.common_name, species.scientific_name, species.population\ 
   FROM\
     sightings\
   RIGHT JOIN individuals\

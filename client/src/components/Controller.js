@@ -1,10 +1,12 @@
 // import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import Form from "./form/Form";
 import DetailPage from "./detail/DetailPage";
 import IndividualList from "./individual/Individual";
 
 const Controller = () => {
+  // let { id } = useParams();
+
   const handleAddOnSubmit = async (newSighting) => {
     console.log(newSighting);
     const requestOptions = {
@@ -31,7 +33,7 @@ const Controller = () => {
           <DetailPage
           // events={events}
           // handleToggleFavorite={handleToggleFavorite}
-          // handleDeleteEvent={handleDeleteEvent}
+          // deleteSighting={handleDeleteSighting}
           />
         }
       />

@@ -23,39 +23,40 @@ function DetailPage() {
     getSightingDetail(); // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
   }, []);
 
+  const handleDeleteSighting = async (deleteId) => {
+    // Simple DELETE HTTP request with async await
+
+    let response = await fetch(`/api/sighting/${id}`, {
+      method: "DELETE",
+    });
+    await response.json();
+    // delete functionality
+    const deleteSighting = sightingDetail.filter(
+      (sighting) => sighting.id !== deleteId
+    );
+    console.log(deleteSighting);
+    setSightingDetail(deleteSighting);
+  };
+
   return sightingDetail ? (
     <div className="detailPage">
-      {/* <p>sightingDetail</p> */}
-      <h1>Common Name: individual.common_name</h1>
-      <div className="Flex">
+      <h1>sightingDetail</h1>
+      <h1>{sightingDetail.name}</h1>
+      <div className="detailList">
         <p>Scientific Name: {sightingDetail.scientific_name}</p>
+        <p>Common Name: {sightingDetail.common_name}</p>
         <p>Conservation Status: Endangered</p>
-        <p>Population: 500</p>
+        <p>Population: {sightingDetail.population}</p>
         <p>Nick Name: {sightingDetail.name}</p>
-        <p>Last Seen: {sightingDetail.scientific_name}</p>
+        <p>Last Seen: {sightingDetail.last_seen}</p>
         <p>Location:{sightingDetail.location}</p>
-        <button className="deleteButton">Delete</button>
+        <button
+          className="deleteButton"
+          onClick={() => handleDeleteSighting(sightingDetail.id)}
+        >
+          Delete
+        </button>
       </div>
-      {/* <table>
-        <tbody>
-          <tr>
-            <th>C N</th>
-            <th> S N</th>
-           
-            <th>conservation Status</th>
-          </tr>
-          {individual.map((val, key) => {
-            return (
-              <tr key={key}>
-                <td>{val.common_name}</td>
-                <td>{val.scientific_name}</td>
-             
-                <td>{val.conservation_status}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table> */}
     </div>
   ) : (
     <div>loading</div>
