@@ -67,9 +67,9 @@ const IndividualSightingList = () => {
                 <tr key={key}>
                   <td>{val.name}</td>
                   <td>{val.common_name}</td>
-                  <td>{val.healthy}</td>
+                  <td>{val.healthy ? "Healthy" : "UnHealthy"}</td>
                   <td>{val.location}</td>
-                  <td>{val.last_seen}</td>
+                  <td>{new Date(val.last_seen).toLocaleString()}</td>
 
                   <td>
                     <button onClick={() => routeChange(val.id)}>Details</button>
