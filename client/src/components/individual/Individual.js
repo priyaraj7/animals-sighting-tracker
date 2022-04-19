@@ -2,30 +2,25 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Individual.css";
 
-const IndividualSightingList = () => {
+const IndividualSightingList = ({ sighting }) => {
   let navigate = useNavigate();
   const routeChange = (id) => {
     let path = `/detail/${id}`;
     navigate(path);
   };
 
-  const [sighting, setSighting] = useState([]);
-  // const [selectedIndividual, setSelectedIndividual] = useState("");
+  // const [sighting, setSighting] = useState([]);
 
-  // Access your API from  React app
+  // const getAllSighting = async () => {
+  //   const request = await fetch("/api/sighting");
+  //   const result = await request.json();
+  //   console.log(result);
+  //   setSighting(result);
+  // };
 
-  // console.log(sighting);
-
-  const getAllSighting = async () => {
-    const request = await fetch("/api/sighting");
-    const result = await request.json();
-    console.log(result);
-    setSighting(result);
-  };
-
-  useEffect(() => {
-    getAllSighting();
-  }, []);
+  // useEffect(() => {
+  //   getAllSighting();
+  // }, []);
 
   return (
     <div className="Individual-List">

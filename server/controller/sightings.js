@@ -55,7 +55,7 @@ const updateSighting = async (req, res) => {
 const deleteSighting = async (req, res) => {
   const id = req.params.id;
 
-  console.log("Delete request is receiving", id);
+  // console.log("Delete request is receiving", id);
 
   try {
     await model.deleteSighting(id);

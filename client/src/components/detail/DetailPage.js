@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import "./DetailPage.css";
 
 function DetailPage() {
   let { id } = useParams();
+  let navigate = useNavigate();
   const [sightingDetail, setSightingDetail] = useState(null);
 
   // Access your API from  React app
@@ -20,7 +21,7 @@ function DetailPage() {
   };
 
   useEffect(() => {
-    getSightingDetail(); // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    getSightingDetail();
   }, []);
 
   const handleDeleteSighting = async (deleteId) => {
@@ -29,13 +30,15 @@ function DetailPage() {
     let response = await fetch(`/api/sighting/${id}`, {
       method: "DELETE",
     });
-    await response.json();
+    // await response.json();
     // delete functionality
     const deleteSighting = sightingDetail.filter(
       (sighting) => sighting.id !== deleteId
     );
+    // navigate("../success", { replace: true });
     console.log(deleteSighting);
     setSightingDetail(deleteSighting);
+    navigate("/");
   };
 
   return sightingDetail ? (
