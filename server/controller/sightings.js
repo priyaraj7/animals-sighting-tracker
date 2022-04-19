@@ -5,6 +5,7 @@ const model = require("../models/sightings");
 const getAllSighting = async (req, res) => {
   try {
     const result = await model.getSightings();
+    console.log(result);
     res.send(result);
   } catch (e) {
     return res.status(400).json({ e });

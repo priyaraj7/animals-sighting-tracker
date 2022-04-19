@@ -1,12 +1,12 @@
 // import React, { useState, useEffect } from "react";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import Form from "./form/Form";
 import DetailPage from "./detail/DetailPage";
 import IndividualList from "./individual/Individual";
 
 const Controller = () => {
-  // let { id } = useParams();
+  let { id } = useParams();
 
   const [sighting, setSighting] = useState([]);
   // const [sightingDetail, setSightingDetail] = useState(null);
@@ -38,25 +38,33 @@ const Controller = () => {
     await request.json();
   };
 
-  // Detail page functions
+  const handleDeleteSighting = async (deleteId) => {
+    // Simple DELETE HTTP request with async await
 
-  // console.log(sightingDetail);
-
-  // const getSightingDetail = async () => {
-  //   const request = await fetch(`/api/sighting/${id}`);
-  //   const result = await request.json();
-  //   console.log(result);
-  //   setSightingDetail(result);
-  //   console.log(sightingDetail);
-  // };
-
-  // useEffect(() => {
-  //   getSightingDetail();
-  // }, []);
+    let response = await fetch(`/api/sighting/${deleteId}`, {
+      method: "DELETE",
+    });
+    // await response.json();
+    // delete functionality
+    const deleteSighting = sighting.filter(
+      (sighting) => sighting.id !== deleteId
+    );
+    // navigate("../success", { replace: true });
+    console.log(deleteSighting);
+    setSighting(deleteSighting);
+  };
 
   return (
     <Routes>
-      <Route path="/" element={<IndividualList sighting={sighting} />} />
+      <Route
+        path="/"
+        element={
+          <IndividualList
+            sighting={sighting}
+            deleteSighting={handleDeleteSighting}
+          />
+        }
+      />
       <Route path="add" element={<Form addNewSighting={handleAddOnSubmit} />} />
       <Route
         // index={true}

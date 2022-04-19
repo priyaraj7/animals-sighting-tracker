@@ -5,7 +5,7 @@ const getSightings = async () => {
     sightings.id, sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\ 
   FROM\ 
     sightings\
-  RIGHT JOIN individuals\
+  LEFT JOIN individuals\
      ON individuals.id = sightings.individual_id\
   LEFT JOIN species\
     ON species.id = individuals.species_id`);

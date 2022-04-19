@@ -2,25 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Individual.css";
 
-const IndividualSightingList = ({ sighting }) => {
+const IndividualSightingList = ({ sighting, deleteSighting }) => {
   let navigate = useNavigate();
   const routeChange = (id) => {
     let path = `/detail/${id}`;
     navigate(path);
   };
-
-  // const [sighting, setSighting] = useState([]);
-
-  // const getAllSighting = async () => {
-  //   const request = await fetch("/api/sighting");
-  //   const result = await request.json();
-  //   console.log(result);
-  //   setSighting(result);
-  // };
-
-  // useEffect(() => {
-  //   getAllSighting();
-  // }, []);
 
   return (
     <div className="Individual-List">
@@ -35,6 +22,7 @@ const IndividualSightingList = ({ sighting }) => {
               <th>Location</th>
               <th> Date and Time of Seen</th>
               <th>More Details</th>
+              <th>Delete</th>
             </tr>
             {sighting.map((val, key) => {
               return (
@@ -47,6 +35,11 @@ const IndividualSightingList = ({ sighting }) => {
 
                   <td>
                     <button onClick={() => routeChange(val.id)}>Details</button>
+                  </td>
+                  <td>
+                    <button onClick={() => deleteSighting(val.id)}>
+                      delete
+                    </button>
                   </td>
                 </tr>
               );
