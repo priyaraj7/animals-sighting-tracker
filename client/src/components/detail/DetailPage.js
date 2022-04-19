@@ -13,10 +13,11 @@ function DetailPage() {
 
   const getSightingDetail = async () => {
     const request = await fetch(`/api/sighting/${id}`);
-    // debugger;
+    debugger;
     const result = await request.json();
     console.log(result);
     setSightingDetail(result);
+    console.log(sightingDetail);
   };
 
   useEffect(() => {
@@ -25,14 +26,15 @@ function DetailPage() {
 
   return (
     <div className="detailPage">
+      {/* <p>sightingDetail</p> */}
       <h1>Common Name: individual.common_name</h1>
       <div className="Flex">
-        <p>Scientific Name: xyz</p>
+        {/* <p>Scientific Name: {sightingDetail.scientific_name}</p>
         <p>Conservation Status: Endangered</p>
         <p>Population: 500</p>
-        <p>Nick Name:</p>
-        <p>Last Seen:</p>
-        <p>Location:</p>
+        <p>Nick Name: {sightingDetail.name}</p>
+        <p>Last Seen: {sightingDetail.scientific_name}</p>
+        <p>Location:{sightingDetail.location}</p> */}
         <button className="deleteButton">Delete</button>
       </div>
       {/* <table>

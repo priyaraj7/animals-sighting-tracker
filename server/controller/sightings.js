@@ -11,15 +11,6 @@ const getAllSighting = async (req, res) => {
   }
 };
 
-const getSighting = async (req, res) => {
-  try {
-    const result = await model.getSightings(req.params.id);
-    res.send(result);
-  } catch (e) {
-    return res.status(400).json({ e });
-  }
-};
-
 //create the POST request
 const addNewSighting = async (req, res) => {
   const newSighting = {
@@ -78,14 +69,18 @@ const deleteSighting = async (req, res) => {
 
 const getSightingDetails = async (req, res) => {
   const id = req.params.id;
-  const result = await model.getSightingDetails(id);
-  if (result) return res.status(200).send(JSON.stringify(result));
-  res.status(404).send("Sighting not found");
+  try {
+    const result = await model.getSightingDetails(id);
+    console.log(result);
+    if (result) return res.status(200).send(JSON.stringify(result));
+  } catch (error) {
+    res.status(404).send("Sighting not found");
+  }
 };
 
 module.exports = {
   getAllSighting,
-  getSighting,
+  // getSighting,
   addNewSighting,
   updateSighting,
   deleteSighting,

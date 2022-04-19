@@ -12,21 +12,21 @@ const getSightings = async () => {
   return sighting;
 };
 
-const getSighting = async (id) => {
-  const { rows: sighting } = await db.query(
-    `SELECT\ 
-    sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\ 
-  FROM\ 
-    sightings\
-  where id=$1
-  RIGHT JOIN individuals\
-     ON individuals.id = sightings.individual_id\
-  LEFT JOIN species\
-    ON species.id = individuals.species_id`,
-    [id]
-  );
-  return sighting;
-};
+// const getSighting = async (id) => {
+//   const { rows: sighting } = await db.query(
+//     `SELECT\
+//     sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\
+//   FROM\
+//     sightings\
+//   where id=$1
+//   RIGHT JOIN individuals\
+//      ON individuals.id = sightings.individual_id\
+//   LEFT JOIN species\
+//     ON species.id = individuals.species_id`,
+//     [id]
+//   );
+//   return sighting;
+// };
 
 const addNewSighting = async (newSighting) => {
   const result = await db.query(
@@ -65,13 +65,29 @@ const deleteSighting = async (id) => {
 };
 
 const getSightingDetails = async (id) => {
-  const result = await db.query(`SELECT * from sightings WHERE id = $1`, [id]);
-  return result.rows[0];
+  try {
+    const result = await db.query(
+      `SELECT\
+    sightings.date_time as last_seen, sightings.healthy, sightings.location, individuals.nick_name as name, species.common_name, species.scientific_name\ 
+  FROM\
+    sightings\
+  RIGHT JOIN individuals\
+    ON individuals.id = sightings.individual_id\
+  LEFT JOIN species\
+    ON species.id = individuals.species_id\
+  WHERE sightings.id = $1`,
+      [id]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 module.exports = {
   getSightings,
-  getSighting,
+  // getSighting,
   addNewSighting,
   updateSighting,
   deleteSighting,
