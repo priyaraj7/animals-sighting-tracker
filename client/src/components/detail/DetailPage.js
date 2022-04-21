@@ -27,13 +27,13 @@ function DetailPage() {
   return sightingDetail ? (
     <div className="detailPage">
       <h1>Sighting Detail</h1>
-      <h1>{sightingDetail.name}</h1>
+      <h2>{sightingDetail.name}</h2>
       <div className="detailList">
+        <p>Nick Name: {sightingDetail.name}</p>
         <p>Scientific Name: {sightingDetail.scientific_name}</p>
         <p>Common Name: {sightingDetail.common_name}</p>
-        <p>Conservation Status: Endangered</p>
+        <p>Conservation Status: {sightingDetail.conservation_status}</p>
         <p>Population: {sightingDetail.population}</p>
-        <p>Nick Name: {sightingDetail.name}</p>
         <p>Last Seen: {sightingDetail.last_seen}</p>
         <p>Location:{sightingDetail.location}</p>
       </div>

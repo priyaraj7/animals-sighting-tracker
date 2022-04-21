@@ -3,36 +3,18 @@
 .detailPage {
     width: 100%;
     height: 100vh;
-    /* display: flex; */
+   
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align:justify;
+   
+    }
+    h1{
+        color:blue
     }
     
-    /* table {
-    border: 2px solid rgba(9, 9, 9, 0.1);
-    width: 800px;
-    height: 200px;
-    }
+  
     
-    th {
-    border-bottom: 1px solid black;
-    }
-    
-    td {
-    text-align: center;
-    } */
-
-    .deleteButton{
-        /* position: absolute; */
-    /* top:50%; */
-    background-color:#e61c1c;
-    color: #fff;
-    border:none; 
-    border-radius:10px; 
-    padding:15px;
-    min-height:30px; 
-    min-width: 120px;
-    }
+  
     
     

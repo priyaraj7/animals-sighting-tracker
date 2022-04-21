@@ -23,14 +23,15 @@ const IndividualSightingList = ({ sighting, deleteSighting }) => {
             <tr>
               <th>Nick Name</th>
               <th>Common Name</th>
-              {/* <th>Health Status</th> */}
+
               <th>
+                Health Status
                 <button
                   onClick={() => {
                     handleToggleHealthy();
                   }}
                 >
-                  Heathy
+                  Toggle Health Status
                 </button>
               </th>
               <th>Location</th>

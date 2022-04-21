@@ -1,31 +1,13 @@
 import { useEffect, useState } from "react";
-// import { useReducer } from "react";
-// import { useForm } from "react-hook-form";
-// import DateTimePicker from "react-datetime-picker";
+
 import "./Form.css";
 
 const Form = ({ addNewSighting }) => {
-  // const initialValues = {
-  //   id: "",
-  //   common_name: "",
-  //   last_seen: "",
-  //   scientific_name: "",
-  //   name: "",
-  //   location: "",
-  //   healthy: false,
-  //   email: "",
-  // };
-
-  // debugger;
-
   // STATE
   const [species, setSpecies] = useState([]);
   const [individuals, setIndividuals] = useState([]);
-  // const [inputValues, setInputValues] = useState(initialValues);
-  const [selectedSpecies, setSelectedSepcies] = useState(null);
-
+  const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [selectedIndividual, setSelectedIndividual] = useState("");
-
   const [healthy, setHealthy] = useState(false);
   const [location, setLocation] = useState("");
   const [lastSeen, setLastSeen] = useState("");
@@ -49,10 +31,6 @@ const Form = ({ addNewSighting }) => {
     if (selectedSpecies) getIndividualsOfSpecies();
   }, [selectedSpecies]);
 
-  // const test = (ev) => {
-  //   ev.preventDefault();
-  //   return false;
-  // };
   console.log(individuals);
   return (
     <>
@@ -78,7 +56,7 @@ const Form = ({ addNewSighting }) => {
             <label>Select common Name</label>
             <select
               name="species_id"
-              onChange={(e) => setSelectedSepcies(e.target.value)}
+              onChange={(e) => setSelectedSpecies(e.target.value)}
             >
               <option>Select one</option>
               {species.map((animal) => (
@@ -101,20 +79,13 @@ const Form = ({ addNewSighting }) => {
                 </option>
               ))}
             </select>
-            {/* <input
-              // {...register("nickName", { required: true })}
-              placeholder="Nick Name"
-              value={nickName}
-              onChange={(e) => setNickName(e.target.value)}
-            /> */}
-            {/* {errors.nickName?.type === "required" && "Nick Name is required"} */}
 
             <label> Health Status</label>
             <select
-              // {...register("healthy")}
               value={healthy}
               onChange={(e) => setHealthy(e.target.value)}
               placeholder="Select Health Status"
+              required
             >
               <option>Select</option>
               <option value="yes">Healthy</option>
@@ -129,16 +100,16 @@ const Form = ({ addNewSighting }) => {
               onChange={(e) => {
                 setLastSeen(e.target.value);
               }}
+              required
             />
 
             <label>Location</label>
             <textarea
-              // {...register("Location")}
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
+              required
             />
-            {/* <label>date & Time Seen</label> */}
           </fieldset>
 
           <br />
@@ -148,12 +119,11 @@ const Form = ({ addNewSighting }) => {
 
             <label>Email</label>
             <input
-              // {...register("email", { required: true })}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required
             />
-            {/* {errors.email && "email is required"} */}
           </fieldset>
 
           <button className="FormSubmit" type="submit">

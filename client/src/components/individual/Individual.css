@@ -4,7 +4,7 @@
     width: 100%;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     /* align-items: center; */
     }
     
@@ -16,14 +16,15 @@
     
     th {
     border-bottom: 1px solid black;
+    padding-left: 20px;
     }
     
     td {
-    text-align: center;
+        padding-left: 20px;
     }
     
 .List-Header{
-    text-align: center;
+    /* text-align: center; */
     color: blue;
 }
     
