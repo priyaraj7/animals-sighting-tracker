@@ -109,15 +109,16 @@ const Form = ({ addNewSighting }) => {
             /> */}
             {/* {errors.nickName?.type === "required" && "Nick Name is required"} */}
 
-            <label>Status</label>
+            <label> Health Status</label>
             <select
               // {...register("healthy")}
               value={healthy}
               onChange={(e) => setHealthy(e.target.value)}
               placeholder="Select Health Status"
             >
-              <option value="yes">yes</option>
-              <option value="no">no</option>
+              <option>Select</option>
+              <option value="yes">Healthy</option>
+              <option value="no">UnHealthy</option>
             </select>
 
             <label>Date and time of last seen</label>

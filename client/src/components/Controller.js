@@ -1,12 +1,13 @@
 // import React, { useState, useEffect } from "react";
 import { useState, useEffect } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import Form from "./form/Form";
 import DetailPage from "./detail/DetailPage";
 import IndividualList from "./individual/Individual";
 
 const Controller = () => {
-  let { id } = useParams();
+  // let { id } = useParams();
+  const navigate = useNavigate();
 
   const [sighting, setSighting] = useState([]);
   // const [sightingDetail, setSightingDetail] = useState(null);
@@ -36,6 +37,7 @@ const Controller = () => {
     const request = await fetch("/api/sighting", requestOptions);
     console.log(request);
     await request.json();
+    navigate("/", { replace: true });
   };
 
   const handleDeleteSighting = async (deleteId) => {
