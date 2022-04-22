@@ -1,18 +1,13 @@
-// import React, { useState, useEffect } from "react";
 import { useState, useEffect } from "react";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
-import Form from "./form/Form";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import AddSightingForm from "./addSightingForm/AddSightingForm";
 import DetailPage from "./detail/DetailPage";
-import IndividualList from "./individual/Individual";
+import IndividualList from "./sighting/SightingList";
 
 const Controller = () => {
-  // let { id } = useParams();
   const navigate = useNavigate();
 
   const [sighting, setSighting] = useState([]);
-  // const [sightingDetail, setSightingDetail] = useState(null);
-
-  // Individual page functions
 
   const getAllSighting = async () => {
     const request = await fetch("/api/sighting");
@@ -25,7 +20,7 @@ const Controller = () => {
     getAllSighting();
   }, []);
 
-  // Form page functions
+  // AddSightingForm
 
   const handleAddOnSubmit = async (newSighting) => {
     console.log(newSighting);
@@ -40,21 +35,21 @@ const Controller = () => {
     navigate("/", { replace: true });
   };
 
+  // Delete sighting from Sighting List
   const handleDeleteSighting = async (deleteId) => {
-    // Simple DELETE HTTP request with async await
-
     let response = await fetch(`/api/sighting/${deleteId}`, {
       method: "DELETE",
     });
-    // await response.json();
-    // delete functionality
+
     const deleteSighting = sighting.filter(
       (sighting) => sighting.id !== deleteId
     );
-    // navigate("../success", { replace: true });
+
     console.log(deleteSighting);
     setSighting(deleteSighting);
   };
+
+  // Return
 
   return (
     <Routes>
@@ -67,13 +62,11 @@ const Controller = () => {
           />
         }
       />
-      <Route path="add" element={<Form addNewSighting={handleAddOnSubmit} />} />
       <Route
-        // index={true}
-        path="detail/:id"
-        element={<DetailPage />}
+        path="add"
+        element={<AddSightingForm addNewSighting={handleAddOnSubmit} />}
       />
-      {/* <Route path="contact" element={<Contact />} /> */}
+      <Route path="detail/:id" element={<DetailPage />} />
     </Routes>
   );
 };

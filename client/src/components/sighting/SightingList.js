@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Individual.css";
+import "./SightingList.css";
 
 const IndividualSightingList = ({ sighting, deleteSighting }) => {
   let [filterHealthy, setFilterHealthy] = useState(false);
@@ -10,6 +10,7 @@ const IndividualSightingList = ({ sighting, deleteSighting }) => {
     navigate(path);
   };
 
+  // Health filter
   const handleToggleHealthy = () => {
     setFilterHealthy(!filterHealthy);
   };
@@ -20,6 +21,7 @@ const IndividualSightingList = ({ sighting, deleteSighting }) => {
       <div className="Table">
         <table>
           <tbody>
+            {/* TABLE HEADER */}
             <tr>
               <th>Nick Name</th>
               <th>Common Name</th>
@@ -39,6 +41,8 @@ const IndividualSightingList = ({ sighting, deleteSighting }) => {
               <th>More Details</th>
               <th>Delete</th>
             </tr>
+            {/* TABLE DATA */}
+
             {sighting
               .filter((s) => {
                 if (filterHealthy) return s.healthy;

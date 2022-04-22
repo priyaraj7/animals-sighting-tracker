@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import "./Form.css";
+import "./AddSightingForm.css";
 
-const Form = ({ addNewSighting }) => {
+const AddSightingForm = ({ addNewSighting }) => {
   // STATE
   const [species, setSpecies] = useState([]);
   const [individuals, setIndividuals] = useState([]);
@@ -35,7 +35,7 @@ const Form = ({ addNewSighting }) => {
   return (
     <>
       <div className="FormPage">
-        <h1 className="h1">Form</h1>
+        <h1 className="h1">Add Sighting Information</h1>
         <form
           className="Form"
           onSubmit={(ev) => {
@@ -135,4 +135,4 @@ const Form = ({ addNewSighting }) => {
   );
 };
 
-export default Form;
+export default AddSightingForm;
