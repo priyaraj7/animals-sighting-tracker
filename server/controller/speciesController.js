@@ -12,61 +12,39 @@ const getAllSpecies = async (req, res) => {
 };
 
 //create the POST request
-const addNewSpecies = async (req, res) => {
-  const newSpecies = {
-    commonName: req.body.common_name,
-    scientificName: req.body.scientific_name,
-    population: req.body.population,
-    conservationStatus: req.body.conservation_status,
-    createdOn: req.body.created_on,
-  };
-  // console.log([newSpecies.commonName, newSpecies.scientificName]);
+// const addNewSpecies = async (req, res) => {
+//   const newSpecies = {
+//     commonName: req.body.common_name,
+//     scientificName: req.body.scientific_name,
+//     population: req.body.population,
+//     conservationStatus: req.body.conservation_status,
+//     createdOn: req.body.created_on,
+//   };
+//   // console.log([newSpecies.commonName, newSpecies.scientificName]);
 
-  const result = await model.addNewSpecies(...newSpecies);
-  // console.log(result.rows[0]);
-  res.json(result.rows[0]);
-};
+//   const result = await model.addNewSpecies(...newSpecies);
+//   // console.log(result.rows[0]);
+//   res.json(result.rows[0]);
+// };
 
-// Put request - Update to an specific species
-const updateSpecies = async (req, res) => {
-  const id = req.params.id;
-  const updateSpecies = {
-    commonName: req.body.common_name,
-    scientificName: req.body.scientific_name,
-    population: req.body.population,
-    conservationStatus: req.body.conservation_status,
-    createdOn: req.body.created_on,
-  };
-  // console.log("These are the request params that the server is receiving", id);
+// const deleteSpecies = async (req, res) => {
+//   const id = req.params.id;
 
-  try {
-    const update = await model.updateSpecies(id, updateSpecies);
-    console.log(update.rows[0]);
-    res.send(update.rows[0]);
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json({ e });
-  }
-};
+//   console.log("Delete request is receiving", id);
 
-const deleteSpecies = async (req, res) => {
-  const id = req.params.id;
+//   try {
+//     const deleteSpecies = await model.deleteSpecies(id);
 
-  console.log("Delete request is receiving", id);
-
-  try {
-    const deleteSpecies = await model.deleteSpecies(id);
-
-    res.status(200).send(`species deleted with ID: ${id}`);
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json({ e });
-  }
-};
+//     res.status(200).send(`species deleted with ID: ${id}`);
+//   } catch (e) {
+//     console.log(e);
+//     return res.status(400).json({ e });
+//   }
+// };
 
 module.exports = {
   getAllSpecies,
-  addNewSpecies,
-  updateSpecies,
-  deleteSpecies,
+  // addNewSpecies,
+  // // updateSpecies,
+  // deleteSpecies,
 };

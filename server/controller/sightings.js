@@ -29,30 +29,7 @@ const addNewSighting = async (req, res) => {
   res.json(result.rows[0]);
 };
 
-// Put request - Update to an specific individual
-const updateSighting = async (req, res) => {
-  const id = req.params.id;
-  const update = {
-    dateTime: req.body.date_time,
-    location: req.body.location,
-    healthy: req.body.healthy,
-    individualId: req.body.individual_id,
-    createdOn: req.body.created_on,
-    email: req.body.email,
-  };
-  console.log("These are the request params that the server is receiving", id);
-
-  try {
-    const result = await model.updateSighting(id, update);
-
-    console.log(result.rows[0]);
-    res.send(result.rows[0]);
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json({ e });
-  }
-};
-
+//create the DELETE request
 const deleteSighting = async (req, res) => {
   const id = req.params.id;
 
@@ -68,6 +45,7 @@ const deleteSighting = async (req, res) => {
   }
 };
 
+//create the GET request
 const getSightingDetails = async (req, res) => {
   const id = req.params.id;
   try {
@@ -81,9 +59,7 @@ const getSightingDetails = async (req, res) => {
 
 module.exports = {
   getAllSighting,
-  // getSighting,
   addNewSighting,
-  updateSighting,
   deleteSighting,
   getSightingDetails,
 };

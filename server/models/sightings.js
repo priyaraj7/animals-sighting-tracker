@@ -43,21 +43,21 @@ const addNewSighting = async (newSighting) => {
   return result;
 };
 
-const updateSighting = async (id, update) => {
-  const result = await db.query(
-    `UPDATE sightings SET date_time =$1, location=$2, healthy=$3,individual_id=$4, created_on=$5, sighter_id =$6 WHERE id= $7 RETURNING *`,
-    [
-      update.dateTime,
-      update.location,
-      update.healthy,
-      update.individualId,
-      update.createdOn,
-      update.sighterId,
-      id,
-    ]
-  );
-  return result;
-};
+// const updateSighting = async (id, update) => {
+//   const result = await db.query(
+//     `UPDATE sightings SET date_time =$1, location=$2, healthy=$3,individual_id=$4, created_on=$5, sighter_id =$6 WHERE id= $7 RETURNING *`,
+//     [
+//       update.dateTime,
+//       update.location,
+//       update.healthy,
+//       update.individualId,
+//       update.createdOn,
+//       update.sighterId,
+//       id,
+//     ]
+//   );
+//   return result;
+// };
 
 const deleteSighting = async (id) => {
   const result = await db.query(`DELETE FROM sightings WHERE id = $1`, [id]);
@@ -89,7 +89,7 @@ module.exports = {
   getSightings,
   // getSighting,
   addNewSighting,
-  updateSighting,
+  // updateSighting,
   deleteSighting,
   getSightingDetails,
 };
