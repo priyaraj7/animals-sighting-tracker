@@ -6,10 +6,18 @@ describe("Species controller", () => {
   test("getAllSpecies", async () => {
     const data = [
       {
-        name: "smokey",
+        common_name: "Leopard, indian",
+        scientific_name: "Panthera pardus",
+        population: "500",
+        conservation_status: "US",
+        created_on: "2022-01-21T08:00:00.000Z",
       },
       {
-        name: "monkey",
+        common_name: "Vine snake (unidentified)",
+        scientific_name: "Oxybelis sp.",
+        population: "985",
+        conservation_status: "US",
+        created_on: "2022-02-15T08:00:00.000Z",
       },
     ];
     model.getAllSpecies.mockResolvedValue(data);

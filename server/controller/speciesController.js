@@ -3,7 +3,7 @@ const model = require("../models/species");
 //  Get all species
 const getAllSpecies = async (req, res) => {
   try {
-    const { rows: species } = await model.getAllSpecies();
+    const species = await model.getAllSpecies();
     console.log(species);
     res.send(species);
   } catch (e) {
