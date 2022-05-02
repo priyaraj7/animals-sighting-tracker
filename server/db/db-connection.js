@@ -1,6 +1,18 @@
-const { Pool } = require('pg');
-const db = new Pool({
-    connectionString: process.env.DB_URI
-  });
+const { Pool } = require("pg");
 
-  module.exports = db;
+let db;
+function init() {
+  if (!db) {
+    db = new Pool({
+      connectionString: process.env.DB_URI,
+    });
+  }
+  return db;
+}
+
+function reset() {
+  db.end();
+  db = null;
+}
+
+module.exports = { init, reset };

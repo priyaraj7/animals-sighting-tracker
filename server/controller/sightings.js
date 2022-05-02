@@ -1,4 +1,3 @@
-const db = require("../db/db-connection");
 const model = require("../models/sightings");
 
 //  Get all sighting

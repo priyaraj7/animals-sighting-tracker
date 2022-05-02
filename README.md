@@ -26,3 +26,5 @@ https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report?kingdom=V&kingdom=I&stat
 
 [ui](https://www.iucnredlist.org)
 [report](https://survey123.arcgis.com/share/a384e90f69744f2e846135a9ce80027f)
+
+https://www.rithmschool.com/courses/intermediate-node-express/api-tests-with-jest
