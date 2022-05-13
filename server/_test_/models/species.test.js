@@ -12,7 +12,7 @@ describe("Species Model", () => {
   });
 
   afterAll(async () => {
-    await tearDownDB();
+    await tearDownDB(dbClient);
   });
 
   beforeEach(async () => {

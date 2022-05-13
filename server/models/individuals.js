@@ -1,7 +1,9 @@
-const db = require("../db/db-connection").init();
+const db = require("../db/db-connection");
 
 const getIndividual = async () => {
-  const { rows: individual } = await db.query("SELECT * FROM individuals");
+  const { rows: individual } = await db
+    .init()
+    .query("SELECT * FROM individuals");
   return individual;
 };
 
