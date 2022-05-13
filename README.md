@@ -18,7 +18,6 @@
 - express
 - Postgres
 - CSS
-- Docker
 - REST API
 
 ## Features
