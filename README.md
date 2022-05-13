@@ -1,30 +1,79 @@
-### Your First Express and React App
+# Animal Sighting Tracker
 
-Create full stack apps with React and Express. Run your client, server and do a restart of your dump db to have a full-stack project working in minutes
+> This app is a full-stack app with a React frontend, Node/Express backend, and Postgres database.
 
-# Step by Step instructions - To use this project as your start point
+## Table of Contents
 
-### For create the whole project
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Room for Improvement](#room-for-improvement)
 
-1. Go to your source directory in your terminal and run the command `git clone https://github.com/Yosolita1978/React-Express-PairProgramming.git NAMENEWDIRECTORY`
-   [!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%207.50.46%20PM.png?raw=true)
+## Technologies Used
 
-2. To restore the DB dump file that the project already contain, just run the command `psql -U postgres -f db.sql`. Make sure that you have your Postgres password on hand. The psql console will ask you for your password.
-3. To clean your folder from the owner git, run the command `rm -rf .git`
-4. Run the command `git init` to start your git repository
-5. Go to the server folder in the project (`cd server`) and run the command `npm install`
-6. Inside your server folder, create an .env file with `touch .env`
-7. Inside your server folder, open the file `.env.example` and copy the file there.
-8. Inside your .env file, paste the string from .env.example and change the variables with the values from the project. For this template, don't change the name of your db.
-9. Inside your server file: run the command `psql -U postgres -f db.sql` to restore the DB from the file db.sql
-10. Go to the cliente folder (`cd .. and cd client`) and run the command `npm start`
-11. Both server should run now with `npm start`
-12. Go to localhost:3000 and you should see something like this
-    [!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%208.58.13%20PM.png?raw=true)
+- React
+- Node
+- express
+- Postgres
+- CSS
+- Docker
+- REST API
 
-https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report?kingdom=V&kingdom=I&status=E&status=T&status=EmE&status=EmT&status=EXPE&status=EXPN&status=SAE&status=SAT&mapstatus=3&fcrithab=on&fstatus=on&fspecrule=on&finvpop=on&fgroup=on&header=Listed+Animals
+## Features
 
-[ui](https://www.iucnredlist.org)
-[report](https://survey123.arcgis.com/share/a384e90f69744f2e846135a9ce80027f)
+- User can see the list of Animal Sightings
+- User can filter Healthy and Unhealthy Individuals
+- User can go to Detail Page to get more information about the individual
+- User can add new sightings
+- User can delete Individual Sightings
 
-https://www.rithmschool.com/courses/intermediate-node-express/api-tests-with-jest
+## Screenshots
+
+![erd](./screenshots/erd.png)
+
+**Home Page**
+
+![Home Page](./screenshots/homepage.png)
+
+**Detail Page**
+
+![Detail Page](./screenshots/detailpage.png)
+
+**Add Sighting Form Page**
+
+![Add Sighting Form Page](./screenshots/add-sighting.png)
+
+<!-- If you have screenshots you'd like to share, include them here. -->
+
+## Setup
+
+First, clone the project and move inside the directory
+
+next move into the server and install dependencies and start the server
+
+```bash
+cd server
+npm install
+npm run server
+```
+
+Open another terminal then cd into the client, install dependencies and start the server
+
+```bash
+cd client
+npm install
+npm start
+```
+
+Create the database in postgres terminal and create table. You can refer [seed.psql file](./server/db/seed.psql)
+
+Later create the `.env` file and add your credentials. You can refer `.env.example` file
+
+If everything goes well you can see the running app at `http://localhost:3000/`.
+
+## Room for Improvement
+
+- Validate the form
+- write unit test
